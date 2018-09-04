@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Caca</title>
+    <title>Tutorial</title>
     <%= csrf_meta_tags %>
       <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
       <link rel="stylesheet" href="//cdn.jsdelivr.net/flexboxgrid/6.1.1/flexboxgrid.min.css" type="text/css" />
@@ -10,28 +10,9 @@
   </head>
 
   <body>
-      <header>
-        <nav class="be-red white large-padding">
-            <ul class="no-list row center-xs">
-                <li class="col-md">
-                    <h1 class="no-margin" id="logo">Blog Facilito</h1>
-                </li>
-                <li class="col-md">
-                    <%= link_to "Inicio", root_path %>
-                </li>
-                <li class="col-md">
-                    Diseño
-                </li>
-                <li class="col-md">
-                    Programación
-                </li>
-                <li class="col-md">
-                    Tecnología
-                </li>
-            </ul>
-        </nav>
-      </header>
-      
+    <%= render "layouts/navigation" %>      
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>  
     <%= yield %>
   </body>
 </html>

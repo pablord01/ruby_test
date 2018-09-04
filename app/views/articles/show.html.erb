@@ -1,4 +1,18 @@
 <h1><%= @article.title %></h1>
+<p>
+    Visitas: <%= @article.visits_count %>
+</p>
 <div>
     <%= @article.body%>
+</div>
+<div class="field">
+<h3>Comentarios</h3>
+<%= render "comments/form" %>
+<ul id="comments-box">
+    <% @article.comments.each do |comment| %>
+        <li>
+            <%= comment.body %> - <%= comment.user.email %>
+        </li>
+    <%end%>
+</ul>
 </div>

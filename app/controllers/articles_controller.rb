@@ -1,22 +1,24 @@
 class ArticlesController < ApplicationController
-   #GET /articles
+   before_action :authenticate_user!, except: [:show, :index]
+   before_action :set_article, except: [:index, :new, :create]
+    #GET /articles
     def index
         @articles = Article.all
    end
     #GET /articles/:id
     def show
-        @article = Article.find(params[:id])
+        @article.update_visits_count
+        @comment = Comment.new
     end
     #GET /articles/new
     def new
         @article = Article.new
     end
     def edit
-        @article = Article.find(params[:id])
     end
     #POST /articles
     def create
-        @article = Article.new(title: params[:article][:title], 
+        @article = current_user.articles.new(title: params[:article][:title], 
                                 body: params[:article][:body])
         if @article.save
             redirect_to @article
@@ -26,7 +28,6 @@ class ArticlesController < ApplicationController
     end
     #PUT /articles/:id
     def update
-        @article = Article.find(params[:id])
         if @article.update(title: params[:article][:title],
                             body: params[:article][:body])
             redirect_to @article
@@ -35,8 +36,14 @@ class ArticlesController < ApplicationController
         end
     end
     def destroy
-        @article = Article.find(params[:id])
         @article.destroy
         redirect_to articles_path
+    end
+    private
+    def set_article
+        @article = Article.find(params[:id])
+    end
+    def validate_user
+        redirect_to new_user_session_path, notice: "Necesitas Iniciar sesión"
     end
 end
